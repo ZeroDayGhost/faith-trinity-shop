@@ -1,4 +1,5 @@
 import {
+    bootProtectedPage,
     displayDate,
     displayTime,
     escapeHtml,
@@ -6,16 +7,11 @@ import {
     filterSales,
     hasPermission,
     icon,
-    initProtectedPage,
     money,
     setMessage,
 } from './app.js';
 
-const context = await initProtectedPage('history');
-
-if (context) {
-    await renderHistory(context);
-}
+await bootProtectedPage('history', renderHistory);
 
 async function renderHistory(context) {
     const root = document.getElementById('pageRoot');

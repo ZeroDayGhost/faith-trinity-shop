@@ -281,6 +281,26 @@ export async function initProtectedPage(pageKey) {
     return context;
 }
 
+export async function bootProtectedPage(pageKey, renderPage) {
+    const pageRoot = document.getElementById('pageRoot');
+
+    try {
+        const context = await initProtectedPage(pageKey);
+
+        if (!context) {
+            return null;
+        }
+
+        await renderPage(context);
+        return context;
+    } catch (error) {
+        if (pageRoot) {
+            renderError(pageRoot, error.message || 'Could not load this page.');
+        }
+        return null;
+    }
+}
+
 export async function loadAuthContext(client, session) {
     const { data: profile, error: profileError } = await client
         .from('profiles')

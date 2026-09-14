@@ -3,22 +3,18 @@ import {
     PERMISSION_GROUPS,
     ROLE_PRESETS,
     allPermissionKeys,
+    bootProtectedPage,
     displayDate,
     displayRole,
     escapeHtml,
     hasPermission,
     icon,
-    initProtectedPage,
     normalizeRole,
     permissionLabel,
     setMessage,
 } from './app.js';
 
-const context = await initProtectedPage('users');
-
-if (context) {
-    await renderUsers(context);
-}
+await bootProtectedPage('users', renderUsers);
 
 async function renderUsers(context) {
     const root = document.getElementById('pageRoot');

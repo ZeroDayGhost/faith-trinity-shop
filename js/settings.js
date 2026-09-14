@@ -1,17 +1,13 @@
 import {
     bindPasswordToggles,
+    bootProtectedPage,
     escapeHtml,
     hasPermission,
     hydrateIcons,
-    initProtectedPage,
     setMessage,
 } from './app.js';
 
-const context = await initProtectedPage('settings');
-
-if (context) {
-    renderSettings(context);
-}
+await bootProtectedPage('settings', renderSettings);
 
 function renderSettings(context) {
     const root = document.getElementById('pageRoot');

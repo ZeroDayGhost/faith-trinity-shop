@@ -1,17 +1,13 @@
 import {
+    bootProtectedPage,
     escapeHtml,
     hasPermission,
     icon,
-    initProtectedPage,
     money,
     setMessage,
 } from './app.js';
 
-const context = await initProtectedPage('products');
-
-if (context) {
-    await renderProductsPage(context);
-}
+await bootProtectedPage('products', renderProductsPage);
 
 async function renderProductsPage(context) {
     const root = document.getElementById('pageRoot');

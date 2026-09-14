@@ -1,11 +1,11 @@
 import {
+    bootProtectedPage,
     csvEscape,
     displayDate,
     displayTime,
     escapeHtml,
     fetchSalesWithItems,
     hasPermission,
-    initProtectedPage,
     money,
     setMessage,
     summarizeSales,
@@ -13,11 +13,7 @@ import {
     topSellingItems,
 } from './app.js';
 
-const context = await initProtectedPage('reports');
-
-if (context) {
-    await renderReports(context);
-}
+await bootProtectedPage('reports', renderReports);
 
 async function renderReports(context) {
     const root = document.getElementById('pageRoot');

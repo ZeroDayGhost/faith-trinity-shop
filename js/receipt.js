@@ -1,18 +1,14 @@
 import {
+    bootProtectedPage,
     displayDate,
     displayTime,
     escapeHtml,
     hasPermission,
-    initProtectedPage,
     money,
     shortMoney,
 } from './app.js';
 
-const context = await initProtectedPage('receipt');
-
-if (context) {
-    await renderReceipt(context);
-}
+await bootProtectedPage('receipt', renderReceipt);
 
 async function renderReceipt(context) {
     const root = document.getElementById('pageRoot');

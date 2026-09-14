@@ -1,21 +1,18 @@
 import {
+    bootProtectedPage,
     displayDate,
     displayTime,
+    escapeHtml,
     fetchSalesWithItems,
     hasPermission,
     icon,
-    initProtectedPage,
     money,
     summarizeSales,
     todayISO,
     topSellingItems,
 } from './app.js';
 
-const context = await initProtectedPage('dashboard');
-
-if (context) {
-    await renderDashboard(context);
-}
+await bootProtectedPage('dashboard', renderDashboard);
 
 async function renderDashboard(context) {
     const root = document.getElementById('pageRoot');
@@ -154,7 +151,7 @@ function topList(items, context) {
         <div class="compact-list">
             ${items.map((item, index) => `
                 <div class="compact-row">
-                    <span>${index + 1}. ${item.product_name}</span>
+                    <span>${index + 1}. ${escapeHtml(item.product_name)}</span>
                     <strong>${item.units_sold} units</strong>
                     <small>${money(item.total_sales, context.settings)}</small>
                 </div>
